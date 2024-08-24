@@ -2,7 +2,7 @@ from quart import Quart, request
 import requests
 import os
 
-env = "DEV"
+env = "PROD"
 
 if(env == "PROD"):
     encryption_url = "http://10.96.46.46:5000"
