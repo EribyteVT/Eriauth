@@ -2,7 +2,7 @@ from quart import Quart, request
 import requests
 import os
 
-env = "PROD"
+env = "DEV"
 
 if(env == "PROD"):
     encryption_url = "http://10.96.46.46:5000"
@@ -96,4 +96,4 @@ async def ping():
 
 
 
-app.run(port=46469)
+app.run(port=46469,host='0.0.0.0')
