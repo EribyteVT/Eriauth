@@ -89,6 +89,11 @@ async def authorize():
     
     else:
         return "<h1>ERROR, CONTACT ERIBYTE</h1>"
+    
+@app.route('/ping', methods=["GET"])
+async def authorize():
+    return "Pong!"
+
 
 
 app.run(port=46469)
