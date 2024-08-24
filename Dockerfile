@@ -5,4 +5,4 @@ WORKDIR /usr/src/site
 COPY . .
 
 RUN pip install -r requirements.txt
-CMD [ "python", "Eriauth.py" ]
+CMD [ "python", "EriAuth.py" ]
