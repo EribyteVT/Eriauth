@@ -20,17 +20,17 @@ spec:
               value: "yes"
             - name: APP_ID
               valueFrom:
-                configMapKeyRef:
+                secretKeyRef:
                   name: eriauth-secrets
                   key: APP_ID
             - name: CRUD_PASSWORD
               valueFrom:
-                configMapKeyRef:
+                secretKeyRef:
                   name: eriauth-secrets
                   key: CRUD_PASSWORD
             - name: APP_SECRET
               valueFrom:
-                configMapKeyRef:
+                secretKeyRef:
                   name: eriauth-secrets
                   key: APP_SECRET
   selector:
