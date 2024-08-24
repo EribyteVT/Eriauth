@@ -5,8 +5,8 @@ import os
 env = "PROD"
 
 if(env == "PROD"):
-    encryption_url = "http://10.96.46.46:5000"
-    crud_url = "http://10.96.46.21:46468"
+    encryption_url = "http://10.111.131.216:5000"
+    crud_url = "http://10.111.131.62:46468"
 
 elif(env == "DEV"):
     encryption_url = "http://127.0.0.1:5000"
