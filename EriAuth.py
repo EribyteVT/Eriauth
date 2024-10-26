@@ -27,20 +27,15 @@ def encrypt(to_encrypt):
 
 def save_and_encrypt(data):
 
-    access_token = data["access_token"]
-    refresh_token = data["refresh_token"]
+    access_token = data["data"]["access_token"]
+    refresh_token = data["data"]["refresh_token"]
 
     headers = {'Authorization': f'Bearer {access_token}',
                'Client-Id':os.environ.get("APP_ID")}
 
     user = requests.get('https://api.twitch.tv/helix/users',headers=headers)
 
-    print(user.json())
-
     user_id = user.json()['data'][0]['id']
-
-    
-
 
     encrypted_refresh, salt_refresh = encrypt(refresh_token)
 
@@ -55,9 +50,7 @@ def save_and_encrypt(data):
 
     response = requests.post(crud_url+'/token/updateToken',json=data)
 
-    print(response.text)
-
-    if(response.text == "UPDATED"):
+    if(response['response'] == "OKAY"):
         return True
     
     return False
