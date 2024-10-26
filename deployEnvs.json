@@ -13,7 +13,17 @@
           "ip": "10.96.46.125",
           "external-ip": "10.111.131.128"
         }
+      },
+
+      {
+        "env": "prod",
+        "templateParams": {
+          "APPLICATION_NAME": "eriauth-prod",
+          "SECRET_NAME": "eriauth-secrets-prod",
+          "CONFIG_NAME": "eriauth-config-prod",
+          "ip": "10.96.46.124",
+          "external-ip": "10.111.131.125"
+        }
       }
-  
     ]
   }
