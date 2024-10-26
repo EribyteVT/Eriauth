@@ -2,8 +2,6 @@ from quart import Quart, request
 import requests
 import os
 
-env = "PROD"
-
 encryption_url = os.environ.get("ENCRYPTION_URL")
 crud_url =  os.environ.get("CRUD_URL")
 
@@ -20,12 +18,11 @@ def encrypt(to_encrypt):
     encrypted = returned["encrypted"]
     salt = returned["salt"]
 
-    print(encrypted)
-    print(salt)
-
     return encrypted, salt
 
 def save_and_encrypt(data):
+
+    print(data)
 
     access_token = data["data"]["access_token"]
     refresh_token = data["data"]["refresh_token"]
