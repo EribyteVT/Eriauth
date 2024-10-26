@@ -1,16 +1,16 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: eriauth
+  name: ${APPLICATION_NAME}
 spec:
   replicas: 1
   template:
     metadata:
       labels:
-        app: eriauth
+        app: ${APPLICATION_NAME}
     spec:
       containers:
-        - name: eriauth
+        - name: ${APPLICATION_NAME}
           image: eribyteofficial/eriauth
           imagePullPolicy: Always
           ports:
@@ -21,18 +21,45 @@ spec:
             - name: APP_ID
               valueFrom:
                 secretKeyRef:
-                  name: eriauth-secrets
+                  name: ${SECRET_NAME}
                   key: APP_ID
             - name: CRUD_PASSWORD
               valueFrom:
                 secretKeyRef:
-                  name: eriauth-secrets
+                  name: ${SECRET_NAME}
                   key: CRUD_PASSWORD
             - name: APP_SECRET
               valueFrom:
                 secretKeyRef:
-                  name: eriauth-secrets
+                  name: ${SECRET_NAME}
                   key: APP_SECRET
+          
+            - name: ENCRYPTION_URL
+              valueFrom:
+                configMapKeyRef:
+                  name: ${CONFIG_NAME}
+                  key: ENCRYPTION_URL
+            - name: CRUD_URL
+              valueFrom:
+                configMapKeyRef:
+                  name: ${CONFIG_NAME}
+                  key: CRUD_URL
+
   selector:
     matchLabels:
-      app: eriauth
+      app: ${APPLICATION_NAME}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: ${APPLICATION_NAME}
+spec:
+  type: ClusterIP
+  clusterIP: ${ip}
+  selector:
+    app: ${APPLICATION_NAME}
+  externalIPs:
+    - ${external-ip}
+  ports:
+    - targetPort: 46469
+      port: 46469

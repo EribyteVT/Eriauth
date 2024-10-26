@@ -4,13 +4,9 @@ import os
 
 env = "PROD"
 
-if(env == "PROD"):
-    encryption_url = "http://10.111.131.216:5000"
-    crud_url = "http://10.111.131.62:46468"
+encryption_url = os.environ.get("ENCRYPTION_URL")
+crud_url =  os.environ.get("CRUD_URL")
 
-elif(env == "DEV"):
-    encryption_url = "http://127.0.0.1:5000"
-    crud_url = "http://127.0.0.1:46468"
 app = Quart(__name__)
 
 
