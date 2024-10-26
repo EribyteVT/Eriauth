@@ -22,10 +22,8 @@ def encrypt(to_encrypt):
 
 def save_and_encrypt(data):
 
-    print(data)
-
-    access_token = data["data"]["access_token"]
-    refresh_token = data["data"]["refresh_token"]
+    access_token = data["access_token"]
+    refresh_token = data["refresh_token"]
 
     headers = {'Authorization': f'Bearer {access_token}',
                'Client-Id':os.environ.get("APP_ID")}
