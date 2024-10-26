@@ -11,7 +11,7 @@
           "SECRET_NAME": "eriauth-secrets-stage",
           "CONFIG_NAME": "eriauth-config-stage",
           "ip": "10.96.46.125",
-          "external-ip": "10.111.131.126"
+          "external-ip": "10.111.131.128"
         }
       }
   
