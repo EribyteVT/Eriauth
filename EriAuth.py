@@ -43,7 +43,7 @@ def save_and_encrypt(data):
             "access_salt":access_refresh,
             "password":os.environ.get("CRUD_PASSWORD")}
 
-    response = requests.post(crud_url+'/token/updateToken',json=data)
+    response = requests.post(crud_url+'/token/updateToken',json=data).json()
 
     if(response['response'] == "OKAY"):
         return True
@@ -63,8 +63,6 @@ async def authorize():
     r = requests.post("https://id.twitch.tv/oauth2/token",params=params)
 
     returned = r.json()
-
-    print(returned)
 
     success = save_and_encrypt(returned)
 
