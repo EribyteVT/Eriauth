@@ -2,15 +2,9 @@ from quart import Quart, request
 import requests
 import os
 
-env = "PROD"
+encryption_url = os.environ.get("ENCRYPTION_URL")
+crud_url =  os.environ.get("CRUD_URL")
 
-if(env == "PROD"):
-    encryption_url = "http://10.111.131.216:5000"
-    crud_url = "http://10.111.131.62:46468"
-
-elif(env == "DEV"):
-    encryption_url = "http://127.0.0.1:5000"
-    crud_url = "http://127.0.0.1:46468"
 app = Quart(__name__)
 
 
@@ -24,9 +18,6 @@ def encrypt(to_encrypt):
     encrypted = returned["encrypted"]
     salt = returned["salt"]
 
-    print(encrypted)
-    print(salt)
-
     return encrypted, salt
 
 def save_and_encrypt(data):
@@ -39,12 +30,7 @@ def save_and_encrypt(data):
 
     user = requests.get('https://api.twitch.tv/helix/users',headers=headers)
 
-    print(user.json())
-
     user_id = user.json()['data'][0]['id']
-
-    
-
 
     encrypted_refresh, salt_refresh = encrypt(refresh_token)
 
@@ -57,11 +43,9 @@ def save_and_encrypt(data):
             "access_salt":access_refresh,
             "password":os.environ.get("CRUD_PASSWORD")}
 
-    response = requests.post(crud_url+'/token/updateToken',json=data)
+    response = requests.post(crud_url+'/token/updateToken',json=data).json()
 
-    print(response.text)
-
-    if(response.text == "UPDATED"):
+    if(response['response'] == "OKAY"):
         return True
     
     return False
@@ -79,8 +63,6 @@ async def authorize():
     r = requests.post("https://id.twitch.tv/oauth2/token",params=params)
 
     returned = r.json()
-
-    print(returned)
 
     success = save_and_encrypt(returned)
 
